@@ -4,7 +4,11 @@ import { getProductBySlug } from "@/lib/productAction.tsx/product";
 import { notFound } from "next/navigation";
 import React from "react";
 
-const DetailPage = async ({ params }: { params: { slug: string } }) => {
+interface Props {
+  params: { slug: string };
+}
+
+const DetailPage = async ({ params }: Props) => {
   const product = await getProductBySlug(params.slug);
   if (!product) {
     notFound();
