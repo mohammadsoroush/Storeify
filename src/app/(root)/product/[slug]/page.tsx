@@ -4,12 +4,13 @@ import { getProductBySlug } from "@/lib/productAction.tsx/product";
 import { notFound } from "next/navigation";
 import React from "react";
 
-interface Props {
-  params: { slug: string };
-}
-
-const DetailPage = async ({ params }: Props) => {
-  const product = await getProductBySlug(params.slug);
+const DetailPage = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
+  const resolvedParams = await params; // Resolve کردن Promise
+  const product = await getProductBySlug(resolvedParams.slug);
   if (!product) {
     notFound();
   }
@@ -17,7 +18,7 @@ const DetailPage = async ({ params }: Props) => {
     <section className="flex justify-around mt-10">
       {/*imahe*/}
       <div>
-        <Product_image Images={product.images}/>
+        <Product_image Images={product.images} />
       </div>
       <div className=" flex flex-col gap-y-8 border h-fit p-[5px] rounded-[10px] px-[8px] ">
         <p>
