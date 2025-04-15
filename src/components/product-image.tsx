@@ -13,11 +13,12 @@ export const Product_image = ({ Images }: { Images: string[] }) => {
           width={400}
           height={450}
           className="rounded-2xl transition-all cursor-pointer hover:scale-109"
-          />
+        />
       </div>
       <div className="flex gap-x-2">
         {Images.map((img, index) => (
           <Image
+            key={index} // ✅ اینجا یک key یکتا اضافه شد
             onClick={() => setcurrentImage(index)}
             src={img}
             alt="image"

@@ -6,6 +6,7 @@ import { ShoppingCart, UserRound } from "lucide-react";
 import React from "react";
 import { DarkMode } from "./darkMode";
 import { Drawer } from "./drawer";
+import { UserButton } from "./userButton";
 
 export const Header = () => {
   return (
@@ -36,11 +37,9 @@ export const Header = () => {
               <ShoppingCart /> Cart
             </Link>
           </Button>
-          <Button>
-            <Link href={"/Sign-in"} className="flex gap-1">
-              <UserRound /> Sign In
-            </Link>
-          </Button>
+
+          <UserButton />
+        
         </div>
         <Drawer />
       </div>

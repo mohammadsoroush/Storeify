@@ -28,7 +28,7 @@ export const Drawer = () => {
               </Link>
             </Button>
             <Button>
-              <Link href={"/Sign-in"} className="flex gap-1">
+              <Link href={"/sign-in"} className="flex gap-1">
                 <UserRound /> Sign In
               </Link>
             </Button>

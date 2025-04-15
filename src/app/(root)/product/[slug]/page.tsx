@@ -1,5 +1,7 @@
+import { Add_to_cart } from "@/components/add-to-cart";
 import { Price_cart } from "@/components/price-cart";
 import { Product_image } from "@/components/product-image";
+import { getMyCart } from "@/lib/productAction.tsx/cart.action";
 import { getProductBySlug } from "@/lib/productAction.tsx/product";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -11,9 +13,13 @@ const DetailPage = async ({
 }) => {
   const resolvedParams = await params; // Resolve کردن Promise
   const product = await getProductBySlug(resolvedParams.slug);
+
   if (!product) {
     notFound();
   }
+
+  const Shopping_cart = await getMyCart();
+
   return (
     <section className="flex justify-around mt-10">
       {/*imahe*/}
@@ -27,10 +33,11 @@ const DetailPage = async ({
         </p>
         <p className="font-bold text-[20px]">{product.name}</p>
         <p>
-          {product.rating} of {product.numReviews} Reviews
+          {product.rating.toNumber()} of {product.numReviews} Reviews
         </p>
+
         <div className="px-4 py-2 bg-green-200 text-green-600 w-fit rounded-full">
-          <Price_cart price={product.price} />
+          <Price_cart price={product.price.toNumber()} />
         </div>
         <div>
           <p className=" font-semibold">Description</p>
@@ -42,7 +49,7 @@ const DetailPage = async ({
         <div className="flex justify-between gap-x-8">
           <p>Price</p>
           <div>
-            <Price_cart price={product.price} />
+            <Price_cart price={product.price.toNumber()} />
           </div>
         </div>
 
@@ -60,6 +67,22 @@ const DetailPage = async ({
             )}
           </div>
         </div>
+
+        {product.stock > 0 && (
+          <div>
+            <Add_to_cart
+              Shopping_cart={Shopping_cart}
+              item={{
+                productId: product.id,
+                name: product.name,
+                slug: product.slug,
+                price: product.price.toString(),
+                qty: 1,
+                image: product.images![0],
+              }}
+            />
+          </div>
+        )}
       </div>
     </section>
   );
